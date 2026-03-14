@@ -170,19 +170,25 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 
+---
 
 ## Project Structure
 
-breast-cancer-ml-optimisation-analysis
-
-data  
-   data.csv  
-
-notebooks  
-
-app.py  
-requirements.txt  
-README.md  
+```
+TASK2_ML_OPTIMIZATION
+│
+├── data
+│   └── data.csv
+│
+├── notebook
+│   └── breast_cancer.ipynb
+│
+├── report
+│   └── results.md
+│
+├── app.py
+└── requirements.txt
+```
 
 ## Conclusion
 
