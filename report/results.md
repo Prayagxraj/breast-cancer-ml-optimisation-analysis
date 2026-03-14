@@ -34,7 +34,7 @@ The workflow followed these steps
 4 Feature engineering using VIF  
 5 Training ensemble models  
 6 Hyperparameter tuning  
-7 Model evaluation and comparison  
+7 Model evaluation and comparison .
 
 ## Model Improvements
 
