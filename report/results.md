@@ -1,167 +1,174 @@
+# Breast Cancer ML Optimization Analysis
 
+## Project Overview
 
-                                                    Model Comparison and Improvements
+This project studies machine learning approaches for classifying tumors as malignant or benign using the Breast Cancer Wisconsin Diagnostic dataset.
 
+The goal of the project was to build a baseline model and then improve its performance using feature engineering model selection and hyperparameter tuning.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Dataset :
+## Dataset
 
+The dataset includes 569 samples and 30 numerical features describing tumor characteristics.
 
-The experiment was conducted using the Breast Cancer Wisconsin Diagnostic dataset.
-Dataset Contains 569 samples and 30 numerical features describing tumor characteristics.
-The target variable was  (diagnosis) and it was converted from Categorial variables to Numeric labels
+Target variable
 
-          1 --> Malignant 
-          0 --> Benign
+1 = Malignant
+0 = Benign
 
-Two Unnecessary columns (id and Unamed) were removed during preprocessing.
+Two columns were removed during preprocessing because they were not useful for modeling
 
-Malignant --> It means Tumor is cancerous. It can grow aggressively and spread to ther parts of the body.
-Benign    --> It means Tumor is non-cancerous. It grows slowly and does not spread 
+id
+Unnamed
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Malignant tumors are cancerous. They grow aggressively and may spread to other parts of the body.
 
-Baseline Model :-
+Benign tumors are non cancerous. They grow slowly and usually remain localized.
 
-The baseline model used Logistic Regression with feature scaling through a pipeline.
+## Methodology
 
-Model evaluation was performed using 5 -fold Cross Validation 
+The workflow followed these steps
 
-Baseline Performance was 0.935 
+1 Data preprocessing  
+2 Exploratory data analysis  
+3 Baseline model training  
+4 Feature engineering using VIF  
+5 Training ensemble models  
+6 Hyperparameter tuning  
+7 Model evaluation and comparison  
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Model Improvements
 
- IMPROVEMENT -1 (Feature Engineering[VIF])
+Baseline Model
 
-The correlation heatmap showed a strong relationship between features such as radius, perimeter and area indicating multicollinearity.
+The first model was Logistic Regression with feature scaling implemented through a pipeline.
 
-To address this, Variance Inflation Factor (VIF) was used to detect and remove highly correlated features.
-Features with VIF>10 were iteratively removed(One by One).
+Evaluation used 5 fold cross validation.
 
-After removing multicolinear features , Logistic Regression was retrained.
+Baseline Accuracy
 
-PERFORMANCE AFTER VIF FILTERING --> 
+0.935
 
-METRIC       VALUE 
-Accuracy     0.9737
+Feature Engineering using VIF
 
+The correlation heatmap showed strong relationships between features such as radius perimeter and area which indicated multicollinearity.
 
+Variance Inflation Factor VIF was used to detect and remove highly correlated features.
 
-IMPACT -->
-Accuracy improved from 0.935 --> 0.9737 which is an improvement of approx 3.8 %.
+Features with VIF greater than 10 were removed step by step and the model was trained again.
 
-This indicates that removing redundant correlated features helped the model learn more stable relationships.
+Accuracy after VIF filtering
 
+0.9737
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Random Forest Model
 
-IMPROVEMENT - 2 (RANDOM FOREST MODEL)
+A Random Forest classifier was trained to capture non linear relationships between features.
 
-A Random forest classifier was trained to capture non linear relationships between features.
+Accuracy
 
-Model configuration was :
+0.9737
 
-. n_estimators= 300
-. random_state= 42
+Hyperparameter Tuning
 
-METRIC       VALUE 
-Accuracy     0.9737
+Random Forest was tuned using GridSearchCV with 5 fold cross validation.
 
+Parameters tuned
 
-IMPACT -->
+n_estimators  
+max_depth  
+min_samples_split  
 
-Random Forest achieved the same accuracy as the improved Logistic Regression model , suggesting that the dataset is highly predictable and can be effectively modeled using either linear or Tree Based methods ...
+The tuned model achieved the same performance.
 
+Accuracy
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+0.9737
 
-IMPROVEMENT - 3  (HYPERPARAMETER TUNING)
+Model Comparison
 
-Hyperparameter Tuning was applied to random forewst using GRID SEARCH CV  with 5-fold cross validation
+Logistic Regression Baseline          0.935  
+Logistic Regression After VIF        0.9737  
+Random Forest                        0.9737  
+Random Forest Tuned                  0.9737  
 
-Parameters Tuned :
-. n_estimators
-. max_depth
-. min_sample_split
+## Feature Importance
 
-The tuned model achieved the same test accuracy as the untuned Random forest model
+Random Forest feature importance analysis shows that features related to tumor size and boundary irregularity have the strongest influence on predictions.
 
+Important features identified by the model
 
-[METRIC]                    [VALUE] 
-Tuned random Forest          0.9737
+1 area_worst  
+2 concave_points_worst  
+3 radius_worst  
+4 perimeter_worst  
+5 concave_points_mean  
 
-IMPACT --> 
-HT did not further improve accurracy , indicating that the default Random Forest config already performed near the optimal for this dataset.
+Size related features such as area radius and perimeter measure the overall tumor size.
 
+Shape related features such as concave points and concavity describe the irregularity of the tumor boundary.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Malignant tumors often have larger sizes and more irregular shapes which makes these features strong predictors.
 
-MODEL COMPARISON  --> 
+## Interactive Demo
 
-[MODEL]                                  [ACCURACY]
+A Streamlit application was created to visualize the dataset and model results interactively.
 
-Logistic Regression (Baseline CV).         0.9350
+The dashboard allows users to
 
-Logistic Regression (After VIF)            0.9737
+Preview the dataset  
+View distribution of benign and malignant tumors  
+Display the most important features used by the model  
+Explore feature distributions interactively  
 
-Random forest                              0.9737
+## How to Run the Project
 
-Random Forest (TUNED)                      0.9737
+Clone the repository
 
+git clone https://github.com/Prayagxraj/breast-cancer-ml-optimisation-analysis.git
 
+Navigate to the project folder
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cd breast-cancer-ml-optimisation-analysis
 
+Create virtual environment
 
+python -m venv venv
 
-Feature Importance -> 
+Activate environment
 
-Random Forest feature importance analysis shows that features related to tumor size and boundary irregularity are the most influential predictors.
+Mac
 
+source venv/bin/activate
 
-The most important features identified by the model are:
-	1.	area_worst
-	2.	concave_points_worst
-	3.	radius_worst
-	4.	perimeter_worst
-	5.	concave_points_mean
+Windows
 
+venv\Scripts\activate
 
-    These features are primarily related to tumor size and boundary irregularity.
-	•	Size-related features such as area_worst, radius_worst, and perimeter_worst measure how large the tumor is.
-	•	Shape-related features such as concave_points_worst and concavity_mean capture how irregular the tumor boundary is.
+Install dependencies
 
-The model assigns higher importance to these features because malignant tumors often exhibit larger sizes and more irregular boundaries compared to benign tumors.
+pip install -r requirements.txt
 
-This indicates that the Random Forest model relies mainly on tumor geometry and structural irregularity to classify tumors as malignant or benign.
+Run the Streamlit application
 
+streamlit run app.py
 
+## Project Structure
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+breast-cancer-ml-optimisation-analysis
 
-Interactive Demo (Streamlit)
+data  
+   data.csv  
 
-A simple Streamlit application was created to visualize the dataset and model results interactively.
+notebooks  
 
-The app loads the dataset, performs preprocessing, and trains a Random Forest model. It allows users to:
-	•	Preview the dataset
-	•	View the distribution of benign vs malignant tumors
-	•	See the top 10 important features from the model
-	•	Explore the distribution of individual features using an interactive selector 
+app.py  
+requirements.txt  
+README.md  
 
-interactive dashboard instead of only static analysis.
+## Conclusion
 
+The baseline Logistic Regression model achieved an accuracy of 93.5 percent using cross validation.
 
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+After removing multicollinear features using VIF the accuracy improved to 97.37 percent.
 
-
-
-Conclusion ->
-
-The baseline Logistic Regression model achieved 93.5% accuracy using cross-validation.
-
-After applying VIF-based feature engineering, the model accuracy improved to 97.37%, representing a 3.8% improvement 
-
-Random Forest achieved similar performance  indicating that the dataset is highly predictable and that the key predictive signals are captured effectively by both linear and ensemble models 
-
-Hyperparameter tuning did not further improve performance  suggesting that the dataset is already well modeled by the selected algorithms.
+Random Forest produced similar performance which shows that the dataset is highly predictable and can be modeled effectively using both linear models and ensemble methods.
