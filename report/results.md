@@ -38,17 +38,19 @@ The workflow followed these steps
 
 ## Model Improvements
 
-Baseline Model
+### Baseline Model
 
-The first model was Logistic Regression with feature scaling implemented through a pipeline.
+The first model used Logistic Regression with feature scaling implemented through a pipeline.
 
 Evaluation used 5 fold cross validation.
 
-Baseline Accuracy
+**Baseline Accuracy**
 
 0.935
 
-Feature Engineering using VIF
+---
+
+### Feature Engineering using VIF
 
 The correlation heatmap showed strong relationships between features such as radius perimeter and area which indicated multicollinearity.
 
@@ -56,23 +58,27 @@ Variance Inflation Factor VIF was used to detect and remove highly correlated fe
 
 Features with VIF greater than 10 were removed step by step and the model was trained again.
 
-Accuracy after VIF filtering
+**Accuracy after VIF filtering**
 
 0.9737
 
-Random Forest Model
+---
+
+### Random Forest Model
 
 A Random Forest classifier was trained to capture non linear relationships between features.
 
-Accuracy
+**Accuracy**
 
 0.9737
 
-Hyperparameter Tuning
+---
+
+### Hyperparameter Tuning
 
 Random Forest was tuned using GridSearchCV with 5 fold cross validation.
 
-Parameters tuned
+**Parameters tuned**
 
 n_estimators  
 max_depth  
@@ -80,16 +86,21 @@ min_samples_split
 
 The tuned model achieved the same performance.
 
-Accuracy
+**Accuracy**
 
 0.9737
 
-Model Comparison
+---
 
-Logistic Regression Baseline          0.935  
-Logistic Regression After VIF        0.9737  
-Random Forest                        0.9737  
-Random Forest Tuned                  0.9737  
+### Model Comparison
+
+| Model | Accuracy |
+|------|------|
+| Logistic Regression Baseline | 0.935 |
+| Logistic Regression After VIF | **0.9737** |
+| Random Forest | **0.9737** |
+| Random Forest Tuned | **0.9737** |
+
 
 ## Feature Importance
 
@@ -122,35 +133,43 @@ Explore feature distributions interactively
 
 ## How to Run the Project
 
-Clone the repository
-
+### Clone the repository
+```bash
 git clone https://github.com/Prayagxraj/breast-cancer-ml-optimisation-analysis.git
+```
 
-Navigate to the project folder
-
+### Navigate to the project folder
+```bash
 cd breast-cancer-ml-optimisation-analysis
+```
 
-Create virtual environment
-
+### Create virtual environment
+```bash
 python -m venv venv
+```
 
-Activate environment
+### Activate environment
 
 Mac
-
+```bash
 source venv/bin/activate
+```
 
 Windows
-
+```bash
 venv\Scripts\activate
+```
 
-Install dependencies
-
+### Install dependencies
+```bash
 pip install -r requirements.txt
+```
 
-Run the Streamlit application
-
+### Run the Streamlit application
+```bash
 streamlit run app.py
+```
+
 
 ## Project Structure
 
