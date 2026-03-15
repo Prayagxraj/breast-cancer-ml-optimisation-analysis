@@ -46,7 +46,7 @@ Evaluation used 5 fold cross validation.
 
 **Baseline Accuracy**
 
-0.935
+0.9736
 
 ---
 
@@ -60,9 +60,7 @@ Features with VIF greater than 10 were removed step by step and the model was tr
 
 **Accuracy after VIF filtering**
 
-0.9737
-
----
+0.9701
 
 ### Random Forest Model
 
@@ -70,7 +68,7 @@ A Random Forest classifier was trained to capture non linear relationships betwe
 
 **Accuracy**
 
-0.9737
+0.9614
 
 ---
 
@@ -88,18 +86,17 @@ The tuned model achieved the same performance.
 
 **Accuracy**
 
-0.9737
-
+0.9614
 ---
 
 ### Model Comparison
 
 | Model | Accuracy |
 |------|------|
-| Logistic Regression Baseline | 0.935 |
-| Logistic Regression After VIF | **0.9737** |
-| Random Forest | **0.9737** |
-| Random Forest Tuned | **0.9737** |
+| Logistic Regression (Baseline CV) | **0.9736** |
+| Logistic Regression (After VIF) | 0.9701 |
+| Random Forest | 0.9614 |
+| Random Forest Tuned | 0.9614 |
 
 
 ## Feature Importance
@@ -192,8 +189,11 @@ TASK2_ML_OPTIMIZATION
 
 ## Conclusion
 
-The baseline Logistic Regression model achieved an accuracy of 93.5 percent using cross validation.
+The baseline Logistic Regression model achieved an accuracy of approximately 97.36 percent using 5 fold cross validation.
 
-After removing multicollinear features using VIF the accuracy improved to 97.37 percent.
+After removing multicollinear features using VIF the accuracy slightly decreased to about 97.01 percent suggesting that some correlated features may still contribute useful predictive information.
 
-Random Forest produced similar performance which shows that the dataset is highly predictable and can be modeled effectively using both linear models and ensemble methods.
+The Random Forest model achieved an accuracy of approximately 96.14 percent and hyperparameter tuning produced similar performance.
+
+These results indicate that the dataset is largely linearly separable which explains why Logistic Regression performs slightly better than the more complex Random Forest model.
+
